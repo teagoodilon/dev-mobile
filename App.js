@@ -1,14 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import profile from './src/assets/profile.jpg';
+import profile from './src/assets/sidebar/profile.jpg';
+import map from './src/assets/sidebar/map.png';
+import calendar from './src/assets/sidebar/calendar.png';
+import workshop from './src/assets/sidebar/renovation.png';
+import report from './src/assets/sidebar/warning.png';
+import logout from './src/assets/sidebar/log-out.png';
+import menu from './src/assets/sidebar/menu.png';
 
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState("home");
-  const [showMenu, setShowMenu] = useState(false);
+  const [users, setUsers] = useState([]);
+  useEffect(() => {}, [])
 
+  const [currentTab, setCurrentTab] = useState("Bem Vindo a São Tiago!");
+  const [showMenu, setShowMenu] = useState(false);
   const offsetValue = useRef(new Animated.Value(0)).current;
   const scaleValue= useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
@@ -16,7 +24,8 @@ export default function App() {
   return (
     <SafeAreaProvider style={styles.container}>
       <StatusBar backgroundColor='white' style="dark" />
-      <View style={{justifyContent: 'flex-start', padding: 20, marginTop: 10}}>
+      <View style={{justifyContent: 'flex-start', padding: 20, marginTop: 20}}> 
+      {/*----------------------------------------------------------------------SIDEBAR QUE FICAR NO FUNDO */}
         <Image source={profile} style={{
           width: 80,
           height: 80,
@@ -37,21 +46,17 @@ export default function App() {
         </TouchableOpacity>
 
         <View style={{ flexGrow: 1, marginTop: 40}}>
-          {
-
-          }
-          {TabButton(currentTab, setCurrentTab, "Mapa", profile)}
-          {TabButton(currentTab, setCurrentTab, "Programação", profile)}
-          {TabButton(currentTab, setCurrentTab, "Oficinas", profile)}
-          {TabButton(currentTab, setCurrentTab, "Reportar", profile)}
+          {TabButton(currentTab, setCurrentTab, "Mapa", map)} 
+          {TabButton(currentTab, setCurrentTab, "Programação", calendar)}
+          {TabButton(currentTab, setCurrentTab, "Oficinas", workshop)}
+          {TabButton(currentTab, setCurrentTab, "Reportar", report)}
         </View>
         <View>
-          {TabButton(currentTab, setCurrentTab, "Sair", profile)}
+          {TabButton(currentTab, setCurrentTab, "Sair", logout)}
         </View>
+      {/*----------------------------------------------------------------------FIM SIDEBAR*/}
       </View>
-        {
-
-        }
+      {/*----------------------------------------------------------------------ANIMAÇÃO SIDEBAR*/}
         <Animated.View style={{
           flexGrow: 1,
           backgroundColor: 'white',
@@ -68,9 +73,6 @@ export default function App() {
             {translateX: offsetValue }
           ]
         }}>
-          {
-            
-          }
           <Animated.View style={{
             transform: [{
               translateY: closeButtonOffset
@@ -100,38 +102,38 @@ export default function App() {
 
               setShowMenu(!showMenu);
             }}>
-
-              <Image source={profile} style={{
-                width: 20,
-                height: 20,
+      {/*----------------------------------------------------------------------FIM ANIMAÇÃO SIDEBAR*/}
+              <Image source={menu} style={{
+                width: 25,
+                height: 25,
                 tintColor: 'black',
-                marginTop: 40,
+                marginTop: 25,
               }}></Image>
 
             </TouchableOpacity>
-
+      {/*----------------------------------------------------------------------VIEWS*/}
             <Text style={{
                 fontSize: 30,
                 fontWeight: 'bold',
                 color: 'black',
                 paddingTop: 20
               }}>{currentTab}</Text>
+            <Image source={profile} style={{
+              width: '100%',
+              height: 300,
+              borderRadius: 15,
+              marginTop: 20
+            }}></Image>
 
-              <Image source={profile} style={{
-                width: '100%',
-                height: 300,
-                borderRadius: 15,
-                marginTop: 20
-              }}></Image>
-
-              <Text style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                paddingTop: 15,
-                paddingBottom: 5
-              }}>Roger Alvarenga</Text>
-              
-              <Text>Jornalista, Pai de família, gosta de leite</Text>
+            <Text style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              paddingTop: 15,
+              paddingBottom: 5
+            }}>Roger Alvarenga</Text>
+            
+            <Text>Jornalista, Pai de família, gosta de leite</Text>
+      {/*----------------------------------------------------------------------FIMVIEWS*/}
             </Animated.View>
         </Animated.View>
     </SafeAreaProvider>
@@ -152,13 +154,14 @@ const TabButton = (currentTab, setCurrentTab, title, image) =>{
         alignItems: 'center',
         paddingVertical: 8,
         backgroundColor: currentTab == title ? 'white' : 'transparent',
-        paddingLeft: 5,
-        paddingRight: 20,
+        paddingLeft: 1,
+        paddingRight: 40,
         borderRadius: 8,
-        marginTop:10
+        marginTop: 10
       }}>
       <Image source={image} style={{
-        width: 25, height: 25,
+        width: 25,
+        height: 25,
         tintColor: currentTab == title ? "orange" : "white"
       }}></Image>
 

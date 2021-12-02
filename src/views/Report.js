@@ -1,11 +1,10 @@
 import React from "react";
 import {StyleSheet, ScrollView } from 'react-native';
-import Componente from "../components/Componente";
 
 export default () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Componente />
+      <Text>TO na Report</Text>
     </ScrollView>
   );
 };
